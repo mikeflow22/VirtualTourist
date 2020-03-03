@@ -56,15 +56,71 @@
 		1B447D82240EBF87006ADFF9 /* Virtual Tourists */ = {
 			isa = PBXGroup;
 			children = (
+				1B447D9D240EC337006ADFF9 /* Extensions */,
+				1B447D9C240EC32B006ADFF9 /* Model Controller */,
+				1B447D9B240EC31B006ADFF9 /* Network */,
+				1B447D9A240EC314006ADFF9 /* Models */,
+				1B447D97240EC2F3006ADFF9 /* Resources */,
+				1B447D98240EC301006ADFF9 /* View Controllers */,
+				1B447D99240EC30B006ADFF9 /* Storyboards */,
+			);
+			path = "Virtual Tourists";
+			sourceTree = "<group>";
+		};
+		1B447D97240EC2F3006ADFF9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
 				1B447D83240EBF87006ADFF9 /* AppDelegate.swift */,
 				1B447D85240EBF87006ADFF9 /* SceneDelegate.swift */,
-				1B447D87240EBF87006ADFF9 /* ViewController.swift */,
-				1B447D89240EBF87006ADFF9 /* Main.storyboard */,
 				1B447D8C240EBF89006ADFF9 /* Assets.xcassets */,
 				1B447D8E240EBF89006ADFF9 /* LaunchScreen.storyboard */,
 				1B447D91240EBF89006ADFF9 /* Info.plist */,
 			);
-			path = "Virtual Tourists";
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		1B447D98240EC301006ADFF9 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				1B447D87240EBF87006ADFF9 /* ViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		1B447D99240EC30B006ADFF9 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				1B447D89240EBF87006ADFF9 /* Main.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		1B447D9A240EC314006ADFF9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		1B447D9B240EC31B006ADFF9 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		1B447D9C240EC32B006ADFF9 /* Model Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Model Controller";
+			sourceTree = "<group>";
+		};
+		1B447D9D240EC337006ADFF9 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
