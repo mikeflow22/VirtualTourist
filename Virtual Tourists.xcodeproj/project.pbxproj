@@ -13,6 +13,7 @@
 		1B447D8B240EBF87006ADFF9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B447D89240EBF87006ADFF9 /* Main.storyboard */; };
 		1B447D8D240EBF89006ADFF9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B447D8C240EBF89006ADFF9 /* Assets.xcassets */; };
 		1B447D90240EBF89006ADFF9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B447D8E240EBF89006ADFF9 /* LaunchScreen.storyboard */; };
+		1B447DA0240EF012006ADFF9 /* Flickr.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1B447D9E240EF012006ADFF9 /* Flickr.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		1B447D8C240EBF89006ADFF9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1B447D8F240EBF89006ADFF9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1B447D91240EBF89006ADFF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1B447D9F240EF012006ADFF9 /* Flickr.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Flickr.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 		1B447D9C240EC32B006ADFF9 /* Model Controller */ = {
 			isa = PBXGroup;
 			children = (
+				1B447D9E240EF012006ADFF9 /* Flickr.xcdatamodeld */,
 			);
 			path = "Model Controller";
 			sourceTree = "<group>";
@@ -196,6 +199,7 @@
 			files = (
 				1B447D88240EBF87006ADFF9 /* ViewController.swift in Sources */,
 				1B447D84240EBF87006ADFF9 /* AppDelegate.swift in Sources */,
+				1B447DA0240EF012006ADFF9 /* Flickr.xcdatamodeld in Sources */,
 				1B447D86240EBF87006ADFF9 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -394,6 +398,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		1B447D9E240EF012006ADFF9 /* Flickr.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1B447D9F240EF012006ADFF9 /* Flickr.xcdatamodel */,
+			);
+			currentVersion = 1B447D9F240EF012006ADFF9 /* Flickr.xcdatamodel */;
+			path = Flickr.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 1B447D78240EBF87006ADFF9 /* Project object */;
 }

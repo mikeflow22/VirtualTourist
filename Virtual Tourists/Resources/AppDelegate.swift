@@ -13,7 +13,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 // api_key: 9e346b12d7b496480897bdbaf3efc3f7
 // secret: b6f826fac3c7ac45
-
+// userID: 187265532@N03
+//base: https://www.flickr.com/services/rest/
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         return true
