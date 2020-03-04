@@ -66,13 +66,13 @@
 		1B447D82240EBF87006ADFF9 /* Virtual Tourists */ = {
 			isa = PBXGroup;
 			children = (
+				1B447D99240EC30B006ADFF9 /* Storyboards */,
 				1B447D9D240EC337006ADFF9 /* Extensions */,
 				1B447D9C240EC32B006ADFF9 /* Model */,
 				1B447D9B240EC31B006ADFF9 /* Network */,
 				1B447D9A240EC314006ADFF9 /* Model  Controller */,
 				1B447D97240EC2F3006ADFF9 /* Resources */,
 				1B447D98240EC301006ADFF9 /* View Controllers */,
-				1B447D99240EC30B006ADFF9 /* Storyboards */,
 			);
 			path = "Virtual Tourists";
 			sourceTree = "<group>";

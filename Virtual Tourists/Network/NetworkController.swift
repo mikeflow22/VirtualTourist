@@ -70,7 +70,7 @@ class NetworkController {
     func fetchPhotos(withPhotoInformation photoInfo: [PhotoInformation], completion: @escaping(Error?) -> Void){
         //loop through the photoInformation to construct the url for each specific photo
         for onePhoto in photoInfo {
-            let url = URL(string: "https://farm\(onePhoto.farm).staticflickr.com/\(onePhoto.server)/\(onePhoto.id)_\(onePhoto.secret)")!.appendingPathExtension("jpg")
+            let url = URL(string: "https://farm\(onePhoto.farm).staticflickr.com/\(onePhoto.server)/\(onePhoto.id)_\(onePhoto.secret)_m")!.appendingPathExtension("jpg")
 //            print("this is the constructed url for the photo: \(url)")
             
             URLSession.shared.dataTask(with: url) { (data, response, error) in
