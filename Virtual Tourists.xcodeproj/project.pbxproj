@@ -20,6 +20,7 @@
 		1B447DA6240F12A0006ADFF9 /* PhotoInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B447DA5240F12A0006ADFF9 /* PhotoInformation.swift */; };
 		1B447DA8240F2BE1006ADFF9 /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B447DA7240F2BE1006ADFF9 /* NetworkController.swift */; };
 		1B4FAC7524107118001BAFF1 /* Pin+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4FAC7424107118001BAFF1 /* Pin+Convenience.swift */; };
+		1B4FAC77241072A5001BAFF1 /* Photo+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4FAC76241072A5001BAFF1 /* Photo+Convenience.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		1B447DA5240F12A0006ADFF9 /* PhotoInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoInformation.swift; sourceTree = "<group>"; };
 		1B447DA7240F2BE1006ADFF9 /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
 		1B4FAC7424107118001BAFF1 /* Pin+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pin+Convenience.swift"; sourceTree = "<group>"; };
+		1B4FAC76241072A5001BAFF1 /* Photo+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+Convenience.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +135,7 @@
 				1B447DA1240EF22E006ADFF9 /* CoreDataStack.swift */,
 				1B447DA5240F12A0006ADFF9 /* PhotoInformation.swift */,
 				1B4FAC7424107118001BAFF1 /* Pin+Convenience.swift */,
+				1B4FAC76241072A5001BAFF1 /* Photo+Convenience.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -222,6 +225,7 @@
 				1B39A2C5240FF2B900913EFA /* MapViewController.swift in Sources */,
 				1B4FAC7524107118001BAFF1 /* Pin+Convenience.swift in Sources */,
 				1B447D84240EBF87006ADFF9 /* AppDelegate.swift in Sources */,
+				1B4FAC77241072A5001BAFF1 /* Photo+Convenience.swift in Sources */,
 				1B447DA0240EF012006ADFF9 /* Flickr.xcdatamodeld in Sources */,
 				1B447DA8240F2BE1006ADFF9 /* NetworkController.swift in Sources */,
 				1B447D86240EBF87006ADFF9 /* SceneDelegate.swift in Sources */,
