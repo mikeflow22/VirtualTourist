@@ -21,6 +21,7 @@
 		1B447DA8240F2BE1006ADFF9 /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B447DA7240F2BE1006ADFF9 /* NetworkController.swift */; };
 		1B4FAC7524107118001BAFF1 /* Pin+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4FAC7424107118001BAFF1 /* Pin+Convenience.swift */; };
 		1B4FAC77241072A5001BAFF1 /* Photo+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4FAC76241072A5001BAFF1 /* Photo+Convenience.swift */; };
+		1B4FAC7924107465001BAFF1 /* PinController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4FAC7824107465001BAFF1 /* PinController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		1B447DA7240F2BE1006ADFF9 /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
 		1B4FAC7424107118001BAFF1 /* Pin+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pin+Convenience.swift"; sourceTree = "<group>"; };
 		1B4FAC76241072A5001BAFF1 /* Photo+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+Convenience.swift"; sourceTree = "<group>"; };
+		1B4FAC7824107465001BAFF1 /* PinController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 		1B447D9A240EC314006ADFF9 /* Model  Controller */ = {
 			isa = PBXGroup;
 			children = (
+				1B4FAC7824107465001BAFF1 /* PinController.swift */,
 			);
 			path = "Model  Controller";
 			sourceTree = "<group>";
@@ -227,6 +230,7 @@
 				1B447D84240EBF87006ADFF9 /* AppDelegate.swift in Sources */,
 				1B4FAC77241072A5001BAFF1 /* Photo+Convenience.swift in Sources */,
 				1B447DA0240EF012006ADFF9 /* Flickr.xcdatamodeld in Sources */,
+				1B4FAC7924107465001BAFF1 /* PinController.swift in Sources */,
 				1B447DA8240F2BE1006ADFF9 /* NetworkController.swift in Sources */,
 				1B447D86240EBF87006ADFF9 /* SceneDelegate.swift in Sources */,
 			);
