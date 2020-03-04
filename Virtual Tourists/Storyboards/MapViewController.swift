@@ -26,7 +26,6 @@ class MapViewController: UIViewController {
     @IBAction func tapAndHoldGesture(_ sender: UILongPressGestureRecognizer) {
         //get location
         let locationView = sender.location(in: mapView)
-        print("locationView: \(locationView.x)")
         
         //create annotation from said location
         let tappedCoordinates = mapView.convert(locationView, toCoordinateFrom: mapView)
@@ -80,12 +79,11 @@ extension MapViewController: MKMapViewDelegate {
     //segue to collectionView if annotation is selected
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         self.annotationToPass = view.annotation as? MKPointAnnotation
-        print("annotation title: \(String(describing: self.annotationToPass?.title))")
+        print("did select annotation")
         self.performSegue(withIdentifier: "toCollectionView", sender: self)
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-        self.annotationToPass = view.annotation as? MKPointAnnotation
         print("did deselect annotation")
     }
 }

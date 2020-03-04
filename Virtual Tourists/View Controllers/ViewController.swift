@@ -26,6 +26,7 @@ class ViewController: UIViewController {
             print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
             return
         }
+        
         let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
         let region = MKCoordinateRegion(center: annotation.coordinate, span: span)
         mapView.region = region
@@ -44,7 +45,7 @@ class ViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        networkController.photoImages.removeAll()
+        networkController.photoImagesOfCurrentNetworkCall.removeAll()
     }
     
     func populateCollectionView(){
@@ -81,16 +82,17 @@ class ViewController: UIViewController {
 
 extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return networkController.photoImages.count
+        return networkController.photoImagesOfCurrentNetworkCall.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! PhotoCollectionViewCell
-        let photo = networkController.photoImages[indexPath.item]
+        let photo = networkController.photoImagesOfCurrentNetworkCall[indexPath.item]
         cell.photoImageView.image =  photo
         return cell
     }
 }
+
 extension ViewController: MKMapViewDelegate {
     //to spruce up the annotation
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {

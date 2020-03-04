@@ -12,7 +12,7 @@ class NetworkController {
     static let shared = NetworkController()
     
     private let baseURL = URL(string: "https://www.flickr.com/services/rest/")!
-    var photoImages = [UIImage]()
+    var photoImagesOfCurrentNetworkCall = [UIImage]()
     
     func fetchPhotoInformationAtGeoLocation(lat: Double, lon: Double, completion: @escaping ([PhotoInformation]?, Error?) -> Void){
         
@@ -97,7 +97,7 @@ class NetworkController {
                 }
                 
                 DispatchQueue.main.async {
-                    self.photoImages.append(imageFromData)
+                    self.photoImagesOfCurrentNetworkCall.append(imageFromData)
                     completion(nil)
                 }
             }.resume()
