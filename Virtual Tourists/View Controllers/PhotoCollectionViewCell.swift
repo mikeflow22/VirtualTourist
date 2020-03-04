@@ -9,10 +9,6 @@
 import UIKit
 
 class PhotoCollectionViewCell: UICollectionViewCell {
-    @IBOutlet weak var photoImageView: UIImageView! {
-        didSet {
-            print("photoImage was hit")
-        }
-    }
+    @IBOutlet weak var photoImageView: UIImageView! 
     
 }

@@ -10,7 +10,8 @@ import UIKit
 import MapKit
 
 class MapViewController: UIViewController {
-    let annotationToPass = MKPointAnnotation()
+    var annotationsToShow = [MKPointAnnotation]()
+    var annotationToPass: MKPointAnnotation?
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -23,19 +24,23 @@ class MapViewController: UIViewController {
     }
     
     @IBAction func tapAndHoldGesture(_ sender: UILongPressGestureRecognizer) {
-        print("testing")
         //get location
         let locationView = sender.location(in: mapView)
         print("locationView: \(locationView.x)")
         
         //create annotation from said location
         let tappedCoordinates = mapView.convert(locationView, toCoordinateFrom: mapView)
-      
-        self.annotationToPass.coordinate = tappedCoordinates
-        self.annotationToPass.title = "\(self.annotationToPass.coordinate)"
+        
+        //create annotation
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = tappedCoordinates
+        annotation.title = "title of annotation: \(annotation.coordinate)"
+        
+        //add new annotation to annotationsArray
+        self.annotationsToShow.append(annotation)
         
         //add annotation to mapView
-        mapView.addAnnotation(self.annotationToPass)
+        mapView.addAnnotations(self.annotationsToShow)
         
     }
     
@@ -44,11 +49,11 @@ class MapViewController: UIViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toCollectionView" {
-            guard let destination = segue.destination as? ViewController else {
+            guard let destination = segue.destination as? ViewController, let annotationToPass = self.annotationToPass else {
             print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
                 return
             }
-            destination.annotation = self.annotationToPass
+            destination.annotation = annotationToPass
         }
     }
 }
@@ -74,6 +79,13 @@ extension MapViewController: MKMapViewDelegate {
     
     //segue to collectionView if annotation is selected
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        self.annotationToPass = view.annotation as? MKPointAnnotation
+        print("annotation title: \(String(describing: self.annotationToPass?.title))")
         self.performSegue(withIdentifier: "toCollectionView", sender: self)
+    }
+    
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        self.annotationToPass = view.annotation as? MKPointAnnotation
+        print("did deselect annotation")
     }
 }

@@ -16,6 +16,8 @@ class ViewController: UIViewController {
             loadViewIfNeeded()
             print("annotation was hit in the view controller")
             addAnnotation()
+            populateCollectionView()
+            self.collectionView.reloadData()
         }
     }
     
@@ -25,7 +27,6 @@ class ViewController: UIViewController {
             return
         }
         let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-        
         let region = MKCoordinateRegion(center: annotation.coordinate, span: span)
         mapView.region = region
         mapView.addAnnotation(annotation)
@@ -41,13 +42,22 @@ class ViewController: UIViewController {
         collectionView.dataSource  = self
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        networkCall()
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        networkController.photoImages.removeAll()
     }
     
-    func networkCall(){
-        NetworkController.shared.fetchPhotoInformationAtGeoLocation(lat: 36.1699, lon: 115.1398) { (photoInformationArray, error) in
+    func populateCollectionView(){
+        guard let annotation = self.annotation, isViewLoaded else {
+                  print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+                  return
+              }
+        
+        networkCall(lat: annotation.coordinate.latitude, lon: annotation.coordinate.longitude)
+    }
+    
+    func networkCall(lat: Double, lon: Double){
+        NetworkController.shared.fetchPhotoInformationAtGeoLocation(lat: lat, lon: lon) { (photoInformationArray, error) in
             if let error = error {
                 print("Error in file: \(#file) in the body of the function: \(#function)\n on line: \(#line)\n Readable Error: \(error.localizedDescription)\n Technical Error: \(error)\n")
                 return
