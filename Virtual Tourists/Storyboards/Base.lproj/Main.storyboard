@@ -8,6 +8,52 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="OlK-dp-u76">
+            <objects>
+                <navigationController id="dAM-wq-SIx" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Kgb-uX-mhZ">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="nt9-Lf-ds7" kind="relationship" relationship="rootViewController" id="yuA-r4-Y97"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wuz-9j-A4j" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1238" y="41"/>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="GGF-Zd-14F">
+            <objects>
+                <viewController id="nt9-Lf-ds7" customClass="MapViewController" customModule="Virtual_Tourists" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xwZ-H2-Bs5">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="uGT-bI-myu">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="udW-G9-W5q" firstAttribute="trailing" secondItem="uGT-bI-myu" secondAttribute="trailing" id="J45-zE-62n"/>
+                            <constraint firstItem="uGT-bI-myu" firstAttribute="leading" secondItem="udW-G9-W5q" secondAttribute="leading" id="JyU-XP-fgS"/>
+                            <constraint firstItem="uGT-bI-myu" firstAttribute="top" secondItem="udW-G9-W5q" secondAttribute="top" id="XMN-If-wB5"/>
+                            <constraint firstItem="udW-G9-W5q" firstAttribute="bottom" secondItem="uGT-bI-myu" secondAttribute="bottom" id="i0w-H3-wd0"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="udW-G9-W5q"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="FUG-No-Uee"/>
+                    <connections>
+                        <outlet property="mapView" destination="uGT-bI-myu" id="s8w-AF-TaG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gQU-Zc-fNH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-455" y="41"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -79,7 +125,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137.68115942028987" y="77.678571428571431"/>
+            <point key="canvasLocation" x="364" y="41"/>
         </scene>
     </scenes>
 </document>
