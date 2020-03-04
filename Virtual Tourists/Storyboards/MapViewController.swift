@@ -18,6 +18,7 @@ class MapViewController: UIViewController {
         mapView.delegate = self
         mapView.showsUserLocation = true
         mapView.pointOfInterestFilter = .includingAll
+        mapView.isZoomEnabled = true
     }
     
     @IBAction func tapAndHoldGesture(_ sender: UILongPressGestureRecognizer) {
@@ -43,7 +44,6 @@ class MapViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
 }
 
 extension MapViewController: MKMapViewDelegate {
@@ -64,4 +64,9 @@ extension MapViewController: MKMapViewDelegate {
                }
                return pinView
            }
+    
+    //segue to collectionView if annotation is selected
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        self.performSegue(withIdentifier: "toCollectionView", sender: self)
+    }
 }
