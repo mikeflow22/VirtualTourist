@@ -23,7 +23,13 @@ class MapViewController: UIViewController {
     @IBAction func tapAndHoldGesture(_ sender: UILongPressGestureRecognizer) {
         print("testing")
         //get location
-        
+        let locationView = sender.location(in: mapView)
+        print("locationView: \(locationView.x)")
+        let tappedCoordinates = mapView.convert(locationView, toCoordinateFrom: mapView)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = tappedCoordinates
+        annotation.title = "\(annotation.coordinate)"
+        mapView.addAnnotation(annotation)
         //create annotation from said location
         //segue
     }
@@ -41,5 +47,21 @@ class MapViewController: UIViewController {
 }
 
 extension MapViewController: MKMapViewDelegate {
-    
+    //to spruce up the annotation
+     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+               
+               let reuseId = "pin"
+               
+               var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
+               
+               if pinView == nil {
+                   pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+                   pinView!.canShowCallout = true
+                   pinView!.pinTintColor = .red
+               }
+               else {
+                   pinView!.annotation = annotation
+               }
+               return pinView
+           }
 }
