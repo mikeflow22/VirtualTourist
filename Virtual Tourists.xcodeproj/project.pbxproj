@@ -15,6 +15,7 @@
 		1B447D90240EBF89006ADFF9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B447D8E240EBF89006ADFF9 /* LaunchScreen.storyboard */; };
 		1B447DA0240EF012006ADFF9 /* Flickr.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1B447D9E240EF012006ADFF9 /* Flickr.xcdatamodeld */; };
 		1B447DA2240EF22E006ADFF9 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B447DA1240EF22E006ADFF9 /* CoreDataStack.swift */; };
+		1B447DA6240F12A0006ADFF9 /* PhotoRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B447DA5240F12A0006ADFF9 /* PhotoRepresentation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		1B447D91240EBF89006ADFF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1B447D9F240EF012006ADFF9 /* Flickr.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Flickr.xcdatamodel; sourceTree = "<group>"; };
 		1B447DA1240EF22E006ADFF9 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		1B447DA5240F12A0006ADFF9 /* PhotoRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoRepresentation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 			children = (
 				1B447D9E240EF012006ADFF9 /* Flickr.xcdatamodeld */,
 				1B447DA1240EF22E006ADFF9 /* CoreDataStack.swift */,
+				1B447DA5240F12A0006ADFF9 /* PhotoRepresentation.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -201,6 +204,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B447DA2240EF22E006ADFF9 /* CoreDataStack.swift in Sources */,
+				1B447DA6240F12A0006ADFF9 /* PhotoRepresentation.swift in Sources */,
 				1B447D88240EBF87006ADFF9 /* ViewController.swift in Sources */,
 				1B447D84240EBF87006ADFF9 /* AppDelegate.swift in Sources */,
 				1B447DA0240EF012006ADFF9 /* Flickr.xcdatamodeld in Sources */,
@@ -350,7 +354,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X4W7EQ4E4R;
-				INFOPLIST_FILE = "Virtual Tourists/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Virtual Tourists/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -368,7 +372,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X4W7EQ4E4R;
-				INFOPLIST_FILE = "Virtual Tourists/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Virtual Tourists/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
