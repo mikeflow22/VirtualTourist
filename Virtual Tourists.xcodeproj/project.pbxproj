@@ -22,6 +22,7 @@
 		1B4FAC7524107118001BAFF1 /* Pin+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4FAC7424107118001BAFF1 /* Pin+Convenience.swift */; };
 		1B4FAC77241072A5001BAFF1 /* Photo+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4FAC76241072A5001BAFF1 /* Photo+Convenience.swift */; };
 		1B4FAC7924107465001BAFF1 /* PinController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4FAC7824107465001BAFF1 /* PinController.swift */; };
+		1B4FAC7B2410760D001BAFF1 /* PhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4FAC7A2410760D001BAFF1 /* PhotoController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		1B4FAC7424107118001BAFF1 /* Pin+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pin+Convenience.swift"; sourceTree = "<group>"; };
 		1B4FAC76241072A5001BAFF1 /* Photo+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+Convenience.swift"; sourceTree = "<group>"; };
 		1B4FAC7824107465001BAFF1 /* PinController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinController.swift; sourceTree = "<group>"; };
+		1B4FAC7A2410760D001BAFF1 /* PhotoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				1B4FAC7824107465001BAFF1 /* PinController.swift */,
+				1B4FAC7A2410760D001BAFF1 /* PhotoController.swift */,
 			);
 			path = "Model  Controller";
 			sourceTree = "<group>";
@@ -232,6 +235,7 @@
 				1B447DA0240EF012006ADFF9 /* Flickr.xcdatamodeld in Sources */,
 				1B4FAC7924107465001BAFF1 /* PinController.swift in Sources */,
 				1B447DA8240F2BE1006ADFF9 /* NetworkController.swift in Sources */,
+				1B4FAC7B2410760D001BAFF1 /* PhotoController.swift in Sources */,
 				1B447D86240EBF87006ADFF9 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -34,7 +34,6 @@ class PinController {
         saveToPersistentStore()
     }
     
-    
     func saveToPersistentStore(){
         do {
             try CoreDataStack.shared.mainContext.save()
