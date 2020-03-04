@@ -6,12 +6,15 @@
 //  Copyright © 2020 Michael Flowers. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class NetworkController {
-    private let baseURL = URL(string: "https://www.flickr.com/services/rest/")!
+    static let shared = NetworkController()
     
-    func fetchPhotosAtGeoLocation(lat: Double, lon: Double, completion: @escaping ([PhotoRepresentation]?, Error?) -> Void){
+    private let baseURL = URL(string: "https://www.flickr.com/services/rest/")!
+    var photoImages = [UIImage]()
+    
+    func fetchPhotoInformationAtGeoLocation(lat: Double, lon: Double, completion: @escaping ([PhotoInformation]?, Error?) -> Void){
         
         var urlComponents = URLComponents(url: baseURL, resolvingAgainstBaseURL: true)!
         let urlQueryItems = [URLQueryItem(name: "method", value: "flickr.photos.search"),
@@ -60,5 +63,41 @@ class NetworkController {
                 completion(nil, error)
             }
         }.resume()
+    }
+    
+    func fetchPhotos(withPhotoInformation photoInfo: [PhotoInformation], completion: @escaping(Error?) -> Void){
+        //loop through the photoInformation to construct the url for each specific photo
+        for onePhoto in photoInfo {
+            let url = URL(string: "https://farm\(onePhoto.farm).staticflickr.com/\(onePhoto.server)/\(onePhoto.id)_\(onePhoto.secret)")!.appendingPathExtension("jpg")
+            print("this is the constructed url for the photo: \(url)")
+            
+            URLSession.shared.dataTask(with: url) { (data, response, error) in
+                if let response = response as? HTTPURLResponse {
+                    print("Response in \(#function): \(response.statusCode)")
+                }
+                if let error = error {
+                    print("Error in file: \(#file) in the body of the function: \(#function)\n on line: \(#line)\n Readable Error: \(error.localizedDescription)\n Technical Error: \(error)\n")
+                    completion(error)
+                    return
+                }
+                
+                guard let data = data else {
+                    print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+                    completion(error)
+                    return
+                }
+                
+                guard let imageFromData = UIImage(data: data) else {
+                    print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+                    completion(error)
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    self.photoImages.append(imageFromData)
+                }
+                completion(nil)
+            }.resume()
+        }
     }
 }
