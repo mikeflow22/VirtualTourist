@@ -132,6 +132,7 @@
                     <navigationItem key="navigationItem" id="wPp-PN-06A"/>
                     <connections>
                         <outlet property="collectionView" destination="0DQ-DV-c8f" id="bbw-1G-CTp"/>
+                        <outlet property="mapView" destination="aTl-J8-0aQ" id="71Y-5w-Pa9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

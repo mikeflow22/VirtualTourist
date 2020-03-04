@@ -10,7 +10,8 @@ import UIKit
 import MapKit
 
 class MapViewController: UIViewController {
-
+    let annotationToPass = MKPointAnnotation()
+    
     @IBOutlet weak var mapView: MKMapView!
     
     override func viewDidLoad() {
@@ -26,24 +27,30 @@ class MapViewController: UIViewController {
         //get location
         let locationView = sender.location(in: mapView)
         print("locationView: \(locationView.x)")
-        let tappedCoordinates = mapView.convert(locationView, toCoordinateFrom: mapView)
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = tappedCoordinates
-        annotation.title = "\(annotation.coordinate)"
-        mapView.addAnnotation(annotation)
+        
         //create annotation from said location
-        //segue
+        let tappedCoordinates = mapView.convert(locationView, toCoordinateFrom: mapView)
+      
+        self.annotationToPass.coordinate = tappedCoordinates
+        self.annotationToPass.title = "\(self.annotationToPass.coordinate)"
+        
+        //add annotation to mapView
+        mapView.addAnnotation(self.annotationToPass)
+        
     }
     
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "toCollectionView" {
+            guard let destination = segue.destination as? ViewController else {
+            print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+                return
+            }
+            destination.annotation = self.annotationToPass
+        }
     }
-    */
 }
 
 extension MapViewController: MKMapViewDelegate {

@@ -7,14 +7,36 @@
 //
 
 import UIKit
+import MapKit
 
 class ViewController: UIViewController {
     let networkController = NetworkController.shared
+    var annotation: MKPointAnnotation? {
+        didSet {
+            loadViewIfNeeded()
+            print("annotation was hit in the view controller")
+            addAnnotation()
+        }
+    }
     
+    func addAnnotation(){
+        guard let annotation = self.annotation, isViewLoaded else {
+            print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+            return
+        }
+        let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+        
+        let region = MKCoordinateRegion(center: annotation.coordinate, span: span)
+        mapView.region = region
+        mapView.addAnnotation(annotation)
+    }
+    
+    @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var collectionView: UICollectionView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        mapView.delegate = self
         collectionView.delegate = self
         collectionView.dataSource  = self
     }
@@ -58,6 +80,23 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
         cell.photoImageView.image =  photo
         return cell
     }
-    
-    
+}
+extension ViewController: MKMapViewDelegate {
+    //to spruce up the annotation
+        func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+                  
+                  let reuseId = "pin"
+                  
+                  var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
+                  
+                  if pinView == nil {
+                      pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+                      pinView!.canShowCallout = true
+                      pinView!.pinTintColor = .red
+                  }
+                  else {
+                      pinView!.annotation = annotation
+                  }
+                  return pinView
+              }
 }
