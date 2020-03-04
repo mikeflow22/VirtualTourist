@@ -45,7 +45,7 @@ class NetworkController {
                 return
             }
 
-            print("Data returned: \(String(data: data, encoding: .utf8)!)")
+//            print("Data returned: \(String(data: data, encoding: .utf8)!)")
             let decoder = JSONDecoder()
             
             do {
@@ -53,11 +53,13 @@ class NetworkController {
                 let photos = dictionary.photos
                 let photoRepresnetation = photos.photo
                 
-                for id in photoRepresnetation {
-                    print("photoId: \(id.id)")
+//                for id in photoRepresnetation {
+//                    print("photoId: \(id.id)")
+//                }
+//
+                DispatchQueue.main.async {
+                    completion(photoRepresnetation, nil)
                 }
-               
-                completion(photoRepresnetation, nil)
             } catch  {
                 print("Error in: \(#function)\n Readable Error: \(error.localizedDescription)\n Technical Error: \(error)\n line: \(#line)")
                 completion(nil, error)
@@ -69,12 +71,13 @@ class NetworkController {
         //loop through the photoInformation to construct the url for each specific photo
         for onePhoto in photoInfo {
             let url = URL(string: "https://farm\(onePhoto.farm).staticflickr.com/\(onePhoto.server)/\(onePhoto.id)_\(onePhoto.secret)")!.appendingPathExtension("jpg")
-            print("this is the constructed url for the photo: \(url)")
+//            print("this is the constructed url for the photo: \(url)")
             
             URLSession.shared.dataTask(with: url) { (data, response, error) in
                 if let response = response as? HTTPURLResponse {
-                    print("Response in \(#function): \(response.statusCode)")
+//                    print("Response in \(#function): \(response.statusCode)")
                 }
+                
                 if let error = error {
                     print("Error in file: \(#file) in the body of the function: \(#function)\n on line: \(#line)\n Readable Error: \(error.localizedDescription)\n Technical Error: \(error)\n")
                     completion(error)
@@ -95,8 +98,8 @@ class NetworkController {
                 
                 DispatchQueue.main.async {
                     self.photoImages.append(imageFromData)
+                    completion(nil)
                 }
-                completion(nil)
             }.resume()
         }
     }
