@@ -13,29 +13,43 @@ class ViewController: UIViewController {
     let networkController = NetworkController.shared
     var annotation: MKPointAnnotation? {
         didSet {
-            loadViewIfNeeded()
             print("annotation was hit in the view controller")
-            addAnnotation()
             populateCollectionView()
             self.collectionView.reloadData()
         }
     }
     
-    func addAnnotation(){
-        guard let annotation = self.annotation, isViewLoaded else {
+    var pin: Pin? {
+        didSet {
+            print("pin was hit in the view controller")
+            loadViewIfNeeded()
+            setAnnotationFromPin()
+        }
+    }
+    
+    //if we pass a pin in, then we don't call a fetch function it should already have photos in it
+    //if this is a new pin, then we have to call the fetch function with the passed in locations.
+    
+    func setAnnotationFromPin(){
+        guard let passedInPin = self.pin else {
             print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
             return
         }
         
+        let coordinates = CLLocationCoordinate2D(latitude: passedInPin.lat, longitude: passedInPin.lon)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinates
+        
         let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-        let region = MKCoordinateRegion(center: annotation.coordinate, span: span)
+        let region = MKCoordinateRegion(center: coordinates, span: span)
         mapView.region = region
+        self.annotation = annotation
         mapView.addAnnotation(annotation)
     }
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var collectionView: UICollectionView!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
@@ -50,9 +64,9 @@ class ViewController: UIViewController {
     
     func populateCollectionView(){
         guard let annotation = self.annotation, isViewLoaded else {
-                  print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
-                  return
-              }
+            print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+            return
+        }
         
         networkCall(lat: annotation.coordinate.latitude, lon: annotation.coordinate.longitude)
     }
@@ -74,7 +88,7 @@ class ViewController: UIViewController {
                     return
                 }
                 self.collectionView.reloadData()
-//                print("Images array count: \(NetworkController.shared.photoImages.count)")
+                //                print("Images array count: \(NetworkController.shared.photoImages.count)")
             }
         }
     }
@@ -95,20 +109,20 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
 
 extension ViewController: MKMapViewDelegate {
     //to spruce up the annotation
-        func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-                  
-                  let reuseId = "pin"
-                  
-                  var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
-                  
-                  if pinView == nil {
-                      pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
-                      pinView!.canShowCallout = true
-                      pinView!.pinTintColor = .red
-                  }
-                  else {
-                      pinView!.annotation = annotation
-                  }
-                  return pinView
-              }
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        let reuseId = "pin"
+        
+        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
+        
+        if pinView == nil {
+            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            pinView!.canShowCallout = true
+            pinView!.pinTintColor = .red
+        }
+        else {
+            pinView!.annotation = annotation
+        }
+        return pinView
+    }
 }

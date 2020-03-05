@@ -11,9 +11,8 @@ import MapKit
 
 class MapViewController: UIViewController {
     let pinController = PinController.shared
-    
+    var pinToPass: Pin?
     var annotationsToShow = [MKPointAnnotation]()
-    var annotationToPass: MKPointAnnotation?
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -23,12 +22,10 @@ class MapViewController: UIViewController {
         mapView.showsUserLocation = true
         mapView.pointOfInterestFilter = .includingAll
         mapView.isZoomEnabled = true
-//        pinController.deleteAllpins(pins: pinController.pins)
         showAnnotationsFromCoreData()
         
     }
     
-   
     @IBAction func tapAndHoldGesture(_ sender: UILongPressGestureRecognizer) {
         //get location
         let locationView = sender.location(in: mapView)
@@ -74,11 +71,11 @@ class MapViewController: UIViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toCollectionView" {
-            guard let destination = segue.destination as? ViewController, let annotationToPass = self.annotationToPass else {
+            guard let destination = segue.destination as? ViewController, let pin = self.pinToPass else {
             print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
                 return
             }
-            destination.annotation = annotationToPass
+            destination.pin = pin
         }
     }
 }
@@ -104,7 +101,19 @@ extension MapViewController: MKMapViewDelegate {
     
     //segue to collectionView if annotation is selected
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        self.annotationToPass = view.annotation as? MKPointAnnotation
+        if let annotation = view.annotation {
+            let lat = annotation.coordinate.latitude
+            let lon = annotation.coordinate.longitude
+            
+            //loop through the Pins to match coordinates
+            for pin in pinController.pins {
+                if pin.lat == lat && pin.lon == lon {
+                    //assign pin to placeholder and segue the value over
+                    self.pinToPass = pin
+                }
+            }
+        }
+        
         print("did select annotation")
         self.performSegue(withIdentifier: "toCollectionView", sender: self)
     }
