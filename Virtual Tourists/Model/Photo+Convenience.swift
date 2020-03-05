@@ -11,9 +11,11 @@ import CoreData
 
 extension Photo {
     
-    @discardableResult convenience init(image: Data, pin: Pin, context: NSManagedObjectContext =  CoreDataStack.shared.mainContext){
+    @discardableResult convenience init(imageData: Data, pin: Pin, context: NSManagedObjectContext =  CoreDataStack.shared.mainContext){
         self.init(context: context)
-        self.image = image
+        self.imageData = imageData
         self.pin = pin
+//        self.pin?.photos = image
+        //append image to pins
     }
 }

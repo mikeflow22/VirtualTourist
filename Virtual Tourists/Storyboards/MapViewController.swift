@@ -22,6 +22,7 @@ class MapViewController: UIViewController {
         mapView.showsUserLocation = true
         mapView.pointOfInterestFilter = .includingAll
         mapView.isZoomEnabled = true
+//        pinController.deleteAllpins(pins: pinController.pins)
         showAnnotationsFromCoreData()
         
     }

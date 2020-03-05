@@ -27,6 +27,17 @@ class ViewController: UIViewController {
         }
     }
     
+    var coreDataPhotoImages: [UIImage]? {
+        didSet {
+            print("core data photo images array was hit")
+            
+        }
+    }
+    
+    var imagesToPopulateCollectionView: [UIImage]{
+        return pin?.photos?.count == 0 ?  networkController.photoImagesOfCurrentNetworkCall : coreDataPhotoImages ?? []
+    }
+    
     //if we pass a pin in, then we don't call a fetch function it should already have photos in it
     //if this is a new pin, then we have to call the fetch function with the passed in locations.
     
@@ -59,16 +70,45 @@ class ViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        savePhotosToPin()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         networkController.photoImagesOfCurrentNetworkCall.removeAll()
     }
     
     func populateCollectionView(){
-        guard let annotation = self.annotation, isViewLoaded else {
+        guard let passedInPin = self.pin, let photos = passedInPin.photos else {
             print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
             return
         }
-        
-        networkCall(lat: annotation.coordinate.latitude, lon: annotation.coordinate.longitude)
+        if photos.count == 0 {
+            print("pin has no photos so we are making network call based on pin's lat and lon")
+            networkCall(lat: passedInPin.lat, lon: passedInPin.lon)
+        } else {
+            print("passed in pin does have photos")
+            self.coreDataPhotoImages =  PinController.shared.getImageDataFromPhoto(pin: passedInPin)
+            print("coreDataPhotoImages.count:  \(String(describing: self.coreDataPhotoImages?.count))")
+        }
+    }
+    
+    func savePhotosToPin(){
+        guard let passedInPin = self.pin else {
+            print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+            return
+        }
+        convertImageToDataFor(pin: passedInPin)
+    }
+    
+    func convertImageToDataFor(pin: Pin) {
+        for image in networkController.photoImagesOfCurrentNetworkCall {
+            if let imageData = image.pngData() {
+               PhotoController.createPhoto(withImageData: imageData, andWithPin: pin)
+            } else {
+                print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+            }
+        }
     }
     
     func networkCall(lat: Double, lon: Double){
@@ -87,8 +127,9 @@ class ViewController: UIViewController {
                     print("Error in file: \(#file) in the body of the function: \(#function)\n on line: \(#line)\n Readable Error: \(error.localizedDescription)\n Technical Error: \(error)\n")
                     return
                 }
+                //save images we got back into core data
+                self.savePhotosToPin()
                 self.collectionView.reloadData()
-                //                print("Images array count: \(NetworkController.shared.photoImages.count)")
             }
         }
     }
@@ -97,12 +138,14 @@ class ViewController: UIViewController {
 extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return networkController.photoImagesOfCurrentNetworkCall.count
+//        return imagesToPopulateCollectionView.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! PhotoCollectionViewCell
         let photo = networkController.photoImagesOfCurrentNetworkCall[indexPath.item]
-        cell.photoImageView.image =  photo
+//        let photo = imagesToPopulateCollectionView[indexPath.row]
+        cell.photoImageView.image = photo
         return cell
     }
 }

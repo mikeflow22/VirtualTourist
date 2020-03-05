@@ -15,9 +15,9 @@ extension Pin {
         self.lat = lat
         self.lon = lon
         
-//        var coordinate: CLLocationCoordinate2D {
-//            return CLLocationCoordinate2D(latitude: self.lat, longitude: self.lon)
-//        }
-       // self.photos = photos //don't have to set this because we gave it a default in the declaration. if not we would get an error
+        var coordinate: CLLocationCoordinate2D {
+            return CLLocationCoordinate2D(latitude: self.lat, longitude: self.lon)
+        }
+//        self.photos = photos //don't have to set this because we gave it a default in the declaration. if not we would get an error
     }
 }

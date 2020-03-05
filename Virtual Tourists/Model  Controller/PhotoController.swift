@@ -10,9 +10,11 @@ import Foundation
 
 class PhotoController {
     //no need for singleton because we are not going to be storing any data and passing it around other views
-    static func createPhoto(withImageData data: Data, andWithPin pin: Pin){
-        Photo(image: data, pin: pin)
-        
+    static func createPhoto(withImageData data: Data, andWithPin pin: Pin) {
+       let photo = Photo(imageData: data, pin: pin)
+        print("created and saved photo to pin")
+        //I have no idea what this function does or how I have access to it but it seems to have done the trick of adding new photo to pin array
+        pin.addToPhotos(photo)
         //because Pin is the owner of photos I've decided to go through that to save things to the context
         PinController.shared.saveToPersistentStore()
     }

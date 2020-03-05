@@ -18,8 +18,6 @@ struct PhotoDictionary: Codable {
 
 struct PhotoInformation: Codable {
     let id: String
-//    let owner: String
-//    let title: String
     let farm: Int
     let secret: String
     let server: String

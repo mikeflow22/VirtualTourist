@@ -6,7 +6,7 @@
 //  Copyright © 2020 Michael Flowers. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import CoreData
 
 class PinController {
@@ -23,6 +23,26 @@ class PinController {
             print("Error in: \(#function)\n Readable Error: \(error.localizedDescription)\n Technical Error: \(error)")
             return []
         }
+    }
+    
+    func getImageDataFromPhoto(pin: Pin) -> [UIImage]{
+        var images = [UIImage]()
+        //convert the orderedSet into an array of Photo
+        guard let arrayOfPhotoFromOrderedSet = pin.photos?.array as? [Photo] else {
+            print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+            return []
+        }
+        //loop through the newly created array of Photo to grab the imageData attribute and initialize an image with it
+        for photo in arrayOfPhotoFromOrderedSet  {
+            guard let data = photo.imageData, let image = UIImage(data: data) else {
+                print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+                return []
+            }
+            //append to the images array
+            images.append(image)
+        }
+        //return the images
+        return images
     }
     
     func createPin(withLat lat: Double, andWithlon lon: Double){
