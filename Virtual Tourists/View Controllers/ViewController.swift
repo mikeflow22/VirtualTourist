@@ -30,7 +30,6 @@ class ViewController: UIViewController {
     var coreDataPhotoImages: [UIImage]? {
         didSet {
             print("core data photo images array was hit")
-            
         }
     }
     
@@ -93,12 +92,19 @@ class ViewController: UIViewController {
         }
     }
     
+    //calling this function freezes the UI
     func savePhotosToPin(){
         guard let passedInPin = self.pin else {
             print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
             return
         }
-        convertImageToDataFor(pin: passedInPin)
+        print("photos.count: \(passedInPin.photos?.count)")
+        if passedInPin.photos?.count == 0 {
+            print("creating newPhotos")
+            convertImageToDataFor(pin: passedInPin)
+        } else {
+            print("passedInPin already has photos so no need to save")
+        }
     }
     
     func convertImageToDataFor(pin: Pin) {
@@ -109,6 +115,7 @@ class ViewController: UIViewController {
                 print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
             }
         }
+        print("function: \(#function)")
     }
     
     func networkCall(lat: Double, lon: Double){
@@ -127,8 +134,6 @@ class ViewController: UIViewController {
                     print("Error in file: \(#file) in the body of the function: \(#function)\n on line: \(#line)\n Readable Error: \(error.localizedDescription)\n Technical Error: \(error)\n")
                     return
                 }
-                //save images we got back into core data
-                self.savePhotosToPin()
                 self.collectionView.reloadData()
             }
         }
@@ -137,14 +142,14 @@ class ViewController: UIViewController {
 
 extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return networkController.photoImagesOfCurrentNetworkCall.count
-//        return imagesToPopulateCollectionView.count
+//        return networkController.photoImagesOfCurrentNetworkCall.count
+        return imagesToPopulateCollectionView.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! PhotoCollectionViewCell
-        let photo = networkController.photoImagesOfCurrentNetworkCall[indexPath.item]
-//        let photo = imagesToPopulateCollectionView[indexPath.row]
+//        let photo = networkController.photoImagesOfCurrentNetworkCall[indexPath.item]
+        let photo = imagesToPopulateCollectionView[indexPath.row]
         cell.photoImageView.image = photo
         return cell
     }
