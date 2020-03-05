@@ -17,6 +17,7 @@ class PinController {
         let fetchRequest: NSFetchRequest<Pin> = Pin.fetchRequest()
         do {
            let pins = try CoreDataStack.shared.mainContext.fetch(fetchRequest)
+            print("fetched pins: \(pins.count)")
             return pins
         } catch  {
             print("Error in: \(#function)\n Readable Error: \(error.localizedDescription)\n Technical Error: \(error)")
@@ -26,6 +27,7 @@ class PinController {
     
     func createPin(withLat lat: Double, andWithlon lon: Double){
         Pin(lat: lat, lon: lon)
+        print("created pin")
         saveToPersistentStore()
     }
     
@@ -37,6 +39,7 @@ class PinController {
     func saveToPersistentStore(){
         do {
             try CoreDataStack.shared.mainContext.save()
+            print("saved to core data context")
         } catch  {
             print("Error in: \(#function)\n Readable Error: \(error.localizedDescription)\n Technical Error: \(error)")
         }

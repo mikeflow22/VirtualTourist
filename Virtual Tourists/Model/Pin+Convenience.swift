@@ -8,12 +8,16 @@
 
 import Foundation
 import CoreData
-
+import CoreLocation
 extension Pin {
-    @discardableResult convenience init(lat: Double, lon: Double, photos: [Photo] = [], context: NSManagedObjectContext = CoreDataStack.shared.mainContext){
+    @discardableResult convenience init(lat: Double, lon: Double, photos: [Photo] = []/*, coordinate: CLLocationCoordinate2D? = nil*/, context: NSManagedObjectContext = CoreDataStack.shared.mainContext){
         self.init(context: context)
         self.lat = lat
         self.lon = lon
+        
+//        var coordinate: CLLocationCoordinate2D {
+//            return CLLocationCoordinate2D(latitude: self.lat, longitude: self.lon)
+//        }
        // self.photos = photos //don't have to set this because we gave it a default in the declaration. if not we would get an error
     }
 }

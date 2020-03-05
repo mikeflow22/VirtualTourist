@@ -10,6 +10,8 @@ import UIKit
 import MapKit
 
 class MapViewController: UIViewController {
+    let pinController = PinController.shared
+    
     var annotationsToShow = [MKPointAnnotation]()
     var annotationToPass: MKPointAnnotation?
     
@@ -21,6 +23,8 @@ class MapViewController: UIViewController {
         mapView.showsUserLocation = true
         mapView.pointOfInterestFilter = .includingAll
         mapView.isZoomEnabled = true
+        showAnnotationsFromCoreData()
+        
     }
     
     @IBAction func tapAndHoldGesture(_ sender: UILongPressGestureRecognizer) {
@@ -35,12 +39,29 @@ class MapViewController: UIViewController {
         annotation.coordinate = tappedCoordinates
         annotation.title = "title of annotation: \(annotation.coordinate)"
         
+        //create and subsequently save new annotation to core data
+        pinController.createPin(withLat: annotation.coordinate.latitude, andWithlon: annotation.coordinate.longitude)
+        
         //add new annotation to annotationsArray
         self.annotationsToShow.append(annotation)
         
         //add annotation to mapView
         mapView.addAnnotations(self.annotationsToShow)
-        
+    }
+    
+    func showAnnotationsFromCoreData(){
+        if self.annotationsToShow.isEmpty {
+            //fetch pins from CD
+            for pin in pinController.pins {
+                let pinCoordinates = CLLocationCoordinate2D(latitude: pin.lat, longitude: pin.lon)
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = pinCoordinates
+                self.annotationsToShow.append(annotation)
+                self.mapView.addAnnotations(self.annotationsToShow)
+            }
+        } else {
+            print("nothing was fetched from coreData")
+        }
     }
     
     // MARK: - Navigation
