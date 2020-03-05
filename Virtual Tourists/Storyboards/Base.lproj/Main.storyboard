@@ -58,7 +58,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gQU-Zc-fNH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <pongPressGestureRecognizer delaysTouchesBegan="YES" allowableMovement="1" minimumPressDuration="0.29999999999999999" id="vnW-kL-xr2">
                     <connections>
-                        <action selector="tapAndHoldGesture:" destination="nt9-Lf-ds7" id="cOy-dI-cii"/>
+                        <action selector="tapAndHoldGesture:" destination="nt9-Lf-ds7" id="iAk-fO-wD2"/>
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>

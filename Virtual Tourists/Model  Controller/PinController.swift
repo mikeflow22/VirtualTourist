@@ -31,6 +31,13 @@ class PinController {
         saveToPersistentStore()
     }
     
+    func deleteAllpins(pins: [Pin]){
+        for pin in pins {
+            delete(pin: pin)
+        }
+        print("there should be no more pins: \(pins.count)")
+    }
+    
     func delete(pin: Pin){
         CoreDataStack.shared.mainContext.delete(pin)
         saveToPersistentStore()

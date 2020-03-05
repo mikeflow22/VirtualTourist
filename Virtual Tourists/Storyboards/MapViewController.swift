@@ -23,10 +23,12 @@ class MapViewController: UIViewController {
         mapView.showsUserLocation = true
         mapView.pointOfInterestFilter = .includingAll
         mapView.isZoomEnabled = true
+//        pinController.deleteAllpins(pins: pinController.pins)
         showAnnotationsFromCoreData()
         
     }
     
+   
     @IBAction func tapAndHoldGesture(_ sender: UILongPressGestureRecognizer) {
         //get location
         let locationView = sender.location(in: mapView)
@@ -39,14 +41,17 @@ class MapViewController: UIViewController {
         annotation.coordinate = tappedCoordinates
         annotation.title = "title of annotation: \(annotation.coordinate)"
         
-        //create and subsequently save new annotation to core data
-        pinController.createPin(withLat: annotation.coordinate.latitude, andWithlon: annotation.coordinate.longitude)
-        
-        //add new annotation to annotationsArray
-        self.annotationsToShow.append(annotation)
-        
-        //add annotation to mapView
-        mapView.addAnnotations(self.annotationsToShow)
+        if sender.state == .ended {
+            print("Touch did end")
+            //create and subsequently save new annotation to core data
+            pinController.createPin(withLat: annotation.coordinate.latitude, andWithlon: annotation.coordinate.longitude)
+            
+            //add new annotation to annotationsArray
+            self.annotationsToShow.append(annotation)
+            
+            //add annotation to mapView
+            mapView.addAnnotations(self.annotationsToShow)
+        }
     }
     
     func showAnnotationsFromCoreData(){
