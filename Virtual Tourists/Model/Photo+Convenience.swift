@@ -15,7 +15,11 @@ extension Photo {
         self.init(context: context)
         self.imageData = imageData
         self.pin = pin
-//        self.pin?.photos = image
-        //append image to pins
     }
+    
+    
+    @discardableResult convenience init(imageData: Data, context: NSManagedObjectContext =  CoreDataStack.shared.mainContext){
+          self.init(context: context)
+          self.imageData = imageData
+      }
 }

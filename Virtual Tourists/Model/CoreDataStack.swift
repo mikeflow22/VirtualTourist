@@ -21,6 +21,9 @@ class CoreDataStack {
                 fatalError("unresolved error \(error), \(error.userInfo)")
             }
         })
+        
+        //because we want to use another context we have to state how we want the two to communicate or work together
+        container.viewContext.automaticallyMergesChangesFromParent = true
         return container
     }()
     
@@ -29,8 +32,8 @@ class CoreDataStack {
         return container.viewContext
     }
     
-    //maybe ad a save function here for multiple context useage
-    //also set up the relationship between the two
+    //add a save function here for multiple context useage
+
     func save(context: NSManagedObjectContext) throws {
         var error: Error?
         //try to save on the context that's passed in
@@ -43,6 +46,7 @@ class CoreDataStack {
         if let error = error {
             throw error
         }
+        print("saved on another context")
     }
 }
 
