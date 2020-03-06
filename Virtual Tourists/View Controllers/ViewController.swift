@@ -71,6 +71,15 @@ class ViewController: UIViewController {
         super.viewWillDisappear(animated)
         savePhotosToPin()
     }
+    func saveOnBackgroundQueue(){
+        //create a queue
+        let queue = DispatchQueue(label: "save")
+        queue.sync {
+            print("inside the sync queue")
+            self.savePhotosToPin()
+        }
+        
+    }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)

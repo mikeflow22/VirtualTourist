@@ -23,6 +23,7 @@ class CoreDataStack {
         })
         
         //because we want to use another context we have to state how we want the two to communicate or work together
+        
         container.viewContext.automaticallyMergesChangesFromParent = true
         return container
     }()
