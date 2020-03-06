@@ -31,5 +31,18 @@ class CoreDataStack {
     
     //maybe ad a save function here for multiple context useage
     //also set up the relationship between the two
+    func save(context: NSManagedObjectContext) throws {
+        var error: Error?
+        //try to save on the context that's passed in
+        do {
+            try context.save()
+        } catch let throwError {
+            print("Error in: \(#function)\n Readable Error: \(throwError.localizedDescription)\n Technical Error: \(throwError)")
+            error = throwError
+        }
+        if let error = error {
+            throw error
+        }
+    }
 }
 
