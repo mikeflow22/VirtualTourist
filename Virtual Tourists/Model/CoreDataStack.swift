@@ -25,12 +25,17 @@ class CoreDataStack {
         //because we want to use another context we have to state how we want the two to communicate or work together
         
         container.viewContext.automaticallyMergesChangesFromParent = true
+        
         return container
     }()
     
     //step 5 create the context (MOC)
     var mainContext: NSManagedObjectContext {
         return container.viewContext
+    }
+    
+    var backgroundContext: NSManagedObjectContext {
+        return container.newBackgroundContext()
     }
     
     //add a save function here for multiple context useage
