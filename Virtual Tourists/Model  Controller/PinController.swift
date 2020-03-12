@@ -59,14 +59,14 @@ class PinController {
     }
     
     func delete(pin: Pin){
-        CoreDataStack.shared.backgroundContext.delete(pin)
+        CoreDataStack.shared.mainContext.delete(pin)
         saveToPersistentStore()
     }
     
     func saveToPersistentStore(){
         do {
             try CoreDataStack.shared.backgroundContext.save()
-            print("saved to core data context")
+            print("saved to core data background context")
         } catch  {
             print("Error in: \(#function)\n Readable Error: \(error.localizedDescription)\n Technical Error: \(error)")
         }

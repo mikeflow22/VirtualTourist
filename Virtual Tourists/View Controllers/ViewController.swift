@@ -69,8 +69,9 @@ class ViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        savePhotosToPin()
+        saveOnBackgroundQueue()
     }
+    
     func saveOnBackgroundQueue(){
         //create a queue
         let queue = DispatchQueue(label: "save")
@@ -78,7 +79,6 @@ class ViewController: UIViewController {
             print("inside the sync queue")
             self.savePhotosToPin()
         }
-        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -107,6 +107,7 @@ class ViewController: UIViewController {
             print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
             return
         }
+        
         print("photos.count: \(passedInPin.photos?.count)")
         if passedInPin.photos?.count == 0 {
             print("creating newPhotos")
