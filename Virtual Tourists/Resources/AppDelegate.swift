@@ -36,6 +36,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationDidEnterBackground(_ application: UIApplication) {
         //save the main context and its contents
+        do {
+            try CoreDataStack.shared.save(context: CoreDataStack.shared.mainContext)
+        } catch  {
+            print("Error in: \(#function)\n Readable Error: \(error.localizedDescription)\n Technical Error: \(error)")
+        }
     }
 
 }
