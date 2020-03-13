@@ -163,6 +163,22 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
         cell.photoImageView.image = photo
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("touched photo at: \(indexPath.section) at \(indexPath.row)")
+        guard let pin = self.pin, let pinPhotos = pin.photos else {
+            print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+            return
+        }
+        if let photo = pinPhotos[indexPath.row] as? Photo {
+            PhotoController.delete(photo: photo)
+            print("deleted photo")
+//                self.collectionView.reloadData()
+        } else {
+            print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+        }
+        self.collectionView.reloadData()
+    }
 }
 
 extension ViewController: MKMapViewDelegate {
