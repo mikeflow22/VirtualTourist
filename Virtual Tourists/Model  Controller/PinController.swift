@@ -67,6 +67,12 @@ class PinController {
         do {
             try CoreDataStack.shared.backgroundContext.save()
             print("saved to core data background context")
+            do {
+                try CoreDataStack.shared.mainContext.save()
+                print("saved on the main context")
+            } catch  {
+                print("Error in: \(#function)\n Readable Error: \(error.localizedDescription)\n Technical Error: \(error)")
+            }
         } catch  {
             print("Error in: \(#function)\n Readable Error: \(error.localizedDescription)\n Technical Error: \(error)")
         }

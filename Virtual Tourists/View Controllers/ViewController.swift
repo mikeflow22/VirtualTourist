@@ -75,7 +75,7 @@ class ViewController: UIViewController {
     func saveOnBackgroundQueue(){
         //create a queue
         let queue = DispatchQueue(label: "save")
-        queue.sync {
+        queue.async {
             print("inside the sync queue")
             self.savePhotosToPin()
         }
