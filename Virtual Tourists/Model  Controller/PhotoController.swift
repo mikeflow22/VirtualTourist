@@ -19,8 +19,9 @@ class PhotoController {
         PinController.shared.saveToPersistentStore()
     }
     
-    static func delete(photo: Photo){
+    static func delete(photo: Photo, fromPin pin: Pin){
         //in the xcdatamodel we set photo's relationship to be nullify which means that it will delete itself from its parent/Pin
+        pin.removeFromPhotos(photo)
         CoreDataStack.shared.mainContext.delete(photo)
         PinController.shared.saveToPersistentStore()
     }

@@ -171,9 +171,9 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
             return
         }
         if let photo = pinPhotos[indexPath.row] as? Photo {
-            PhotoController.delete(photo: photo)
+            PhotoController.delete(photo: photo, fromPin: pin)
             print("deleted photo")
-//                self.collectionView.reloadData()
+            self.populateCollectionView()
         } else {
             print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
         }
