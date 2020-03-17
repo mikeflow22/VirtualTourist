@@ -115,19 +115,6 @@ class ViewController: UIViewController {
         }
     }
     
-    func newSaveFunction(){
-        if networkController.photoImagesOfCurrentNetworkCall.isEmpty {
-            print("pin passed in did not trigger network call therefore already has photo's.\n so there's no need to save")
-        } else {
-            print("pin passed in did trigger network call therefore it doesn't have any saved photos already so we need to convert images into data and pass it to photo to create a Photo assign it to said pin and then save it")
-            guard let passedInPin = self.pin else {
-                print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
-                return
-            }
-            convertImageToDataFor(pin: passedInPin)
-        }
-    }
-    
     //calling this function freezes the UI
     func savePhotosToPin(){
         guard let passedInPin = self.pin else {
