@@ -178,10 +178,23 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! PhotoCollectionViewCell
-//        let photo = networkController.photoImagesOfCurrentNetworkCall[indexPath.item]
-        let photo = imagesToPopulateCollectionView[indexPath.row]
-        cell.photoImageView.image = photo
-        return cell
+                if let coreDataPhotos = coreDataPhotoImages {
+                    guard coreDataPhotos.count != 0 else {
+                        print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+                        return UICollectionViewCell()
+                    }
+                    let photo = coreDataPhotos[indexPath.row]
+                    print("populating table view with core data images \(#function)")
+                    cell.photoImageView.image = photo
+                } else if !networkController.photoImagesOfCurrentNetworkCall.isEmpty {
+                    print("populating table view with network images \(#function)")
+                    let photo = networkController.photoImagesOfCurrentNetworkCall[indexPath.row]
+                    cell.photoImageView.image = photo
+                    self.savePhotoIncell(withImage: photo)
+                } else {
+                    print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+                }
+                return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
