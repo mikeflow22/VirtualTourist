@@ -15,8 +15,6 @@ class ViewController: UIViewController {
         didSet {
             print("annotation was hit in the view controller")
             populateCollectionView()
-//            self.collectionView.reloadData() //comment this out to see if the collection reloads without it ** it does but will it do it when we are deleting something?
-            //#2 after the tableView has populated we want to save right away.
         }
     }
     
@@ -68,25 +66,38 @@ class ViewController: UIViewController {
         collectionView.dataSource  = self
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        saveOnBackgroundQueue()
-    }
-    
-    func saveOnBackgroundQueue(){
-        //create a queue
-        let queue = DispatchQueue(label: "save")
-        queue.async {
-            print("inside the sync queue")
-//            self.savePhotosToPin()
-            self.newSaveFunction()
-        }
-    }
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(animated)
+//        saveOnBackgroundQueue()
+//    }
+//
+//    func saveOnBackgroundQueue(){
+//        //create a queue
+//        let queue = DispatchQueue(label: "save")
+//        queue.async {
+//            print("inside the sync queue")
+////            self.savePhotosToPin()
+//            self.newSaveFunction()
+//        }
+//    }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         networkController.photoImagesOfCurrentNetworkCall.removeAll()
     }
+    
+       func savePhotoIncell(withImage image: UIImage){
+            if let imageData = image.pngData(), let pin = self.pin {
+    //            let queue = DispatchQueue(label: "save")
+    //            queue.async {
+                    print("inside the sync queue")
+                    PhotoController.createPhoto(withImageData: imageData, andWithPin: pin)
+    //            }
+            } else {
+                print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+                return
+            }
+        }
     
     func populateCollectionView(){
         guard let passedInPin = self.pin, let photos = passedInPin.photos else {
