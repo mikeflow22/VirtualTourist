@@ -15,7 +15,8 @@ class ViewController: UIViewController {
         didSet {
             print("annotation was hit in the view controller")
             populateCollectionView()
-            self.collectionView.reloadData()
+//            self.collectionView.reloadData() //comment this out to see if the collection reloads without it ** it does but will it do it when we are deleting something?
+            //#2 after the tableView has populated we want to save right away.
         }
     }
     
@@ -77,7 +78,8 @@ class ViewController: UIViewController {
         let queue = DispatchQueue(label: "save")
         queue.async {
             print("inside the sync queue")
-            self.savePhotosToPin()
+//            self.savePhotosToPin()
+            self.newSaveFunction()
         }
     }
     
@@ -94,10 +96,25 @@ class ViewController: UIViewController {
         if photos.count == 0 {
             print("pin has no photos so we are making network call based on pin's lat and lon")
             networkCall(lat: passedInPin.lat, lon: passedInPin.lon)
+////            //#1 put saveToBackground here - this wont work because network is an asynchronous method meaning the rest of the block will be executed before it's done. Meaning we are going to save before we get the photos.
+//            saveOnBackgroundQueue()
         } else {
             print("passed in pin does have photos")
             self.coreDataPhotoImages =  PinController.shared.getImageDataFromPhoto(pin: passedInPin)
             print("coreDataPhotoImages.count:  \(String(describing: self.coreDataPhotoImages?.count))")
+        }
+    }
+    
+    func newSaveFunction(){
+        if networkController.photoImagesOfCurrentNetworkCall.isEmpty {
+            print("pin passed in did not trigger network call therefore already has photo's.\n so there's no need to save")
+        } else {
+            print("pin passed in did trigger network call therefore it doesn't have any saved photos already so we need to convert images into data and pass it to photo to create a Photo assign it to said pin and then save it")
+            guard let passedInPin = self.pin else {
+                print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+                return
+            }
+            convertImageToDataFor(pin: passedInPin)
         }
     }
     
@@ -108,24 +125,25 @@ class ViewController: UIViewController {
             return
         }
         
-        print("photos.count: \(passedInPin.photos?.count)")
+        print("photos.count: \(String(describing: passedInPin.photos?.count))")
         if passedInPin.photos?.count == 0 {
-            print("creating newPhotos")
             convertImageToDataFor(pin: passedInPin)
         } else {
             print("passedInPin already has photos so no need to save")
         }
+        
     }
     
     func convertImageToDataFor(pin: Pin) {
         for image in networkController.photoImagesOfCurrentNetworkCall {
             if let imageData = image.pngData() {
+                print("creating newPhotos")
                PhotoController.createPhoto(withImageData: imageData, andWithPin: pin)
             } else {
                 print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
             }
         }
-        print("function: \(#function)")
+        print("Images in photoImagesOfCurrentNetworkCall: \(networkController.photoImagesOfCurrentNetworkCall.count)\n function: \(#function)")
     }
     
     func networkCall(lat: Double, lon: Double){
@@ -144,7 +162,11 @@ class ViewController: UIViewController {
                     print("Error in file: \(#file) in the body of the function: \(#function)\n on line: \(#line)\n Readable Error: \(error.localizedDescription)\n Technical Error: \(error)\n")
                     return
                 }
+                //when function is done, it loads the array of images in pinController therefore we can populate the collectionView
                 self.collectionView.reloadData()
+                
+////                //#3 we should be able to save here - this only creates the first photo and saves it.
+//                self.saveOnBackgroundQueue()
             }
         }
     }

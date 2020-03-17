@@ -12,7 +12,11 @@ class NetworkController {
     static let shared = NetworkController()
     
     private let baseURL = URL(string: "https://www.flickr.com/services/rest/")!
-    var photoImagesOfCurrentNetworkCall = [UIImage]()
+    var photoImagesOfCurrentNetworkCall = [UIImage]() {
+        didSet {
+            //            print("photoImagesOfCurrentNetworkCall set: \(photoImagesOfCurrentNetworkCall.count)")
+        }
+    }
     
     func fetchPhotoInformationAtGeoLocation(lat: Double, lon: Double, completion: @escaping ([PhotoInformation]?, Error?) -> Void){
         
@@ -41,11 +45,11 @@ class NetworkController {
             
             guard let data = data else {
                 print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
-              completion(nil, error)
+                completion(nil, error)
                 return
             }
-
-//            print("Data returned: \(String(data: data, encoding: .utf8)!)")
+            
+            //            print("Data returned: \(String(data: data, encoding: .utf8)!)")
             let decoder = JSONDecoder()
             
             do {
@@ -53,10 +57,10 @@ class NetworkController {
                 let photos = dictionary.photos
                 let photoRepresnetation = photos.photo
                 
-//                for id in photoRepresnetation {
-//                    print("photoId: \(id.id)")
-//                }
-//
+                //                for id in photoRepresnetation {
+                //                    print("photoId: \(id.id)")
+                //                }
+                //
                 DispatchQueue.main.async {
                     completion(photoRepresnetation, nil)
                 }
@@ -71,11 +75,11 @@ class NetworkController {
         //loop through the photoInformation to construct the url for each specific photo
         for onePhoto in photoInfo {
             let url = URL(string: "https://farm\(onePhoto.farm).staticflickr.com/\(onePhoto.server)/\(onePhoto.id)_\(onePhoto.secret)_m")!.appendingPathExtension("jpg")
-//            print("this is the constructed url for the photo: \(url)")
+            //            print("this is the constructed url for the photo: \(url)")
             
             URLSession.shared.dataTask(with: url) { (data, response, error) in
                 if let response = response as? HTTPURLResponse {
-//                    print("Response in \(#function): \(response.statusCode)")
+                    //                    print("Response in \(#function): \(response.statusCode)")
                 }
                 
                 if let error = error {
@@ -98,6 +102,7 @@ class NetworkController {
                 
                 DispatchQueue.main.async {
                     self.photoImagesOfCurrentNetworkCall.append(imageFromData)
+                    print("done fetching all photos and assigned them to the photoImagesOfCurrentNetworkCall array : \(self.photoImagesOfCurrentNetworkCall.count)")
                     completion(nil)
                 }
             }.resume()

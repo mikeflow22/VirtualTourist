@@ -115,6 +115,8 @@ extension MapViewController: MKMapViewDelegate {
         }
         
         print("did select annotation")
+        //deselect the annotation so that user can select another one
+        mapView.deselectAnnotation(view.annotation, animated: true)
         self.performSegue(withIdentifier: "toCollectionView", sender: self)
     }
     
