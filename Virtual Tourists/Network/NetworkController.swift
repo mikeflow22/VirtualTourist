@@ -18,7 +18,7 @@ class NetworkController {
         }
     }
     
-    func fetchPhotoInformationAtGeoLocation(lat: Double, lon: Double, completion: @escaping ([PhotoInformation]?, Error?) -> Void){
+    func fetchPhotoInformationAtGeoLocation(lat: Double, lon: Double, page: Int? = 1, completion: @escaping ([PhotoInformation]?, Error?) -> Void){
         
         var urlComponents = URLComponents(url: baseURL, resolvingAgainstBaseURL: true)!
         let urlQueryItems = [URLQueryItem(name: "method", value: "flickr.photos.search"),
@@ -26,6 +26,7 @@ class NetworkController {
                              URLQueryItem(name: "lat", value: "\(lat)"),
                              URLQueryItem(name: "lon", value: "\(lon)"),
                              URLQueryItem(name: "format", value: "json"),
+                             URLQueryItem(name: "page", value: "\(String(describing: page))"),
                              URLQueryItem(name: "nojsoncallback", value: "1")
         ]
         

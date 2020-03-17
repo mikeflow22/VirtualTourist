@@ -166,6 +166,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func loadMorePhotos(_ sender: UIBarButtonItem) {
+        //random value for page
     }
     
 }
