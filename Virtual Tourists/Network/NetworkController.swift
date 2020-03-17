@@ -57,10 +57,6 @@ class NetworkController {
                 let photos = dictionary.photos
                 let photoRepresnetation = photos.photo
                 
-                //                for id in photoRepresnetation {
-                //                    print("photoId: \(id.id)")
-                //                }
-                //
                 DispatchQueue.main.async {
                     completion(photoRepresnetation, nil)
                 }
@@ -102,7 +98,7 @@ class NetworkController {
                 
                 DispatchQueue.main.async {
                     self.photoImagesOfCurrentNetworkCall.append(imageFromData)
-                    print("done fetching all photos and assigned them to the photoImagesOfCurrentNetworkCall array : \(self.photoImagesOfCurrentNetworkCall.count)")
+                    print("appending the photoImagesOfCurrentNetworkCall array : \(self.photoImagesOfCurrentNetworkCall.count)")
                     completion(nil)
                 }
             }.resume()

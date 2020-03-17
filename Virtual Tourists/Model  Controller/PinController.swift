@@ -66,13 +66,7 @@ class PinController {
     func saveToPersistentStore(){
         do {
             try CoreDataStack.shared.backgroundContext.save()
-            print("saved to core data background context")
-            do {
-                try CoreDataStack.shared.mainContext.save()
-                print("saved on the main context")
-            } catch  {
-                print("Error in: \(#function)\n Readable Error: \(error.localizedDescription)\n Technical Error: \(error)")
-            }
+            print("saved to core data's main context")
         } catch  {
             print("Error in: \(#function)\n Readable Error: \(error.localizedDescription)\n Technical Error: \(error)")
         }
