@@ -33,9 +33,9 @@ class ViewController: UIViewController {
         }
     }
     
-    var imagesToPopulateCollectionView: [UIImage]{
-        return pin?.photos?.count == 0 ?  networkController.photoImagesOfCurrentNetworkCall : coreDataPhotoImages ?? []
-    }
+//    var imagesToPopulateCollectionView: [UIImage]{
+//        return pin?.photos?.count == 0 ?  networkController.photoImagesOfCurrentNetworkCall : coreDataPhotoImages ?? []
+//    }
     
     //if we pass a pin in, then we don't call a fetch function it should already have photos in it
     //if this is a new pin, then we have to call the fetch function with the passed in locations.
@@ -67,38 +67,38 @@ class ViewController: UIViewController {
         collectionView.dataSource  = self
     }
     
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//        saveOnBackgroundQueue()
-//    }
-//
-//    func saveOnBackgroundQueue(){
-//        //create a queue
-//        let queue = DispatchQueue(label: "save")
-//        queue.async {
-//            print("inside the sync queue")
-////            self.savePhotosToPin()
-//            self.newSaveFunction()
-//        }
-//    }
+    //    override func viewWillDisappear(_ animated: Bool) {
+    //        super.viewWillDisappear(animated)
+    //        saveOnBackgroundQueue()
+    //    }
+    //
+    //    func saveOnBackgroundQueue(){
+    //        //create a queue
+    //        let queue = DispatchQueue(label: "save")
+    //        queue.async {
+    //            print("inside the sync queue")
+    ////            self.savePhotosToPin()
+    //            self.newSaveFunction()
+    //        }
+    //    }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         networkController.photoImagesOfCurrentNetworkCall.removeAll()
     }
     
-       func savePhotoIncell(withImage image: UIImage){
-            if let imageData = image.pngData(), let pin = self.pin {
-    //            let queue = DispatchQueue(label: "save")
-    //            queue.async {
-                    print("inside the sync queue")
-                    PhotoController.createPhoto(withImageData: imageData, andWithPin: pin)
-    //            }
-            } else {
-                print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
-                return
-            }
+    func savePhotoIncell(withImage image: UIImage){
+        if let imageData = image.pngData(), let pin = self.pin {
+            //            let queue = DispatchQueue(label: "save")
+            //            queue.async {
+            print("inside the sync queue")
+            PhotoController.createPhoto(withImageData: imageData, andWithPin: pin)
+            //            }
+        } else {
+            print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+            return
         }
+    }
     
     func populateCollectionView(){
         guard let passedInPin = self.pin, let photos = passedInPin.photos else {
@@ -116,33 +116,33 @@ class ViewController: UIViewController {
         }
     }
     
-    //calling this function freezes the UI
-    func savePhotosToPin(){
-        guard let passedInPin = self.pin else {
-            print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
-            return
-        }
-        
-        print("photos.count: \(String(describing: passedInPin.photos?.count))")
-        if passedInPin.photos?.count == 0 {
-            convertImageToDataFor(pin: passedInPin)
-        } else {
-            print("passedInPin already has photos so no need to save")
-        }
-        
-    }
+//    //calling this function freezes the UI
+//    func savePhotosToPin(){
+//        guard let passedInPin = self.pin else {
+//            print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+//            return
+//        }
+//
+//        print("photos.count: \(String(describing: passedInPin.photos?.count))")
+//        if passedInPin.photos?.count == 0 {
+//            convertImageToDataFor(pin: passedInPin)
+//        } else {
+//            print("passedInPin already has photos so no need to save")
+//        }
+//
+//    }
     
-    func convertImageToDataFor(pin: Pin) {
-        for image in networkController.photoImagesOfCurrentNetworkCall {
-            if let imageData = image.pngData() {
-                print("creating newPhotos")
-               PhotoController.createPhoto(withImageData: imageData, andWithPin: pin)
-            } else {
-                print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
-            }
-        }
-        print("Images in photoImagesOfCurrentNetworkCall: \(networkController.photoImagesOfCurrentNetworkCall.count)\n function: \(#function)")
-    }
+//    func convertImageToDataFor(pin: Pin) {
+//        for image in networkController.photoImagesOfCurrentNetworkCall {
+//            if let imageData = image.pngData() {
+//                print("creating newPhotos")
+//                PhotoController.createPhoto(withImageData: imageData, andWithPin: pin)
+//            } else {
+//                print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+//            }
+//        }
+//        print("Images in photoImagesOfCurrentNetworkCall: \(networkController.photoImagesOfCurrentNetworkCall.count)\n function: \(#function)")
+//    }
     
     func networkCall(lat: Double, lon: Double, page: Int? = 1){
         NetworkController.shared.fetchPhotoInformationAtGeoLocation(lat: lat, lon: lon, page: page) { (photoInformationArray, error) in
@@ -167,20 +167,20 @@ class ViewController: UIViewController {
     }
     
     @IBAction func loadMorePhotos(_ sender: UIBarButtonItem) {
-    
-        //random value for page
-        //erase what's in the arrays
-        self.coreDataPhotoImages = []
-        print("removed images passed into core data photos")
+        
+        self.coreDataPhotoImages = nil
+        print("removed images passed into core data photos: \(coreDataPhotoImages?.count)")
         networkController.photoImagesOfCurrentNetworkCall.removeAll()
-        print("removed images in network array")
+        print("removed images in network array: \(networkController.photoImagesOfCurrentNetworkCall.count)")
         //increase page
         self.pageToIncreate += 1
         print("increased page: \(self.pageToIncreate)")
+        
         guard let passedInPin = self.pin else {
-                  print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
-                  return
-              }
+            print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+            return
+        }
+        
         networkCall(lat: passedInPin.lat, lon: passedInPin.lon, page: self.pageToIncreate)
         print("making network call with the page")
     }
@@ -189,34 +189,31 @@ class ViewController: UIViewController {
 
 extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if coreDataPhotoImages?.count != 0 {
-                   print("core data count inside of number of items in section =  \(String(describing: coreDataPhotoImages?.count))")
-                   return coreDataPhotoImages?.count ?? networkController.photoImagesOfCurrentNetworkCall.count
-               }  else {
-                   return 10
-               }
+        return coreDataPhotoImages?.count ?? networkController.photoImagesOfCurrentNetworkCall.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! PhotoCollectionViewCell
+        
         cell.photoImageView.image = UIImage(named: "placeholder")
-                if let coreDataPhotos = coreDataPhotoImages {
-                    guard coreDataPhotos.count != 0 else {
-                        print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
-                        return UICollectionViewCell()
-                    }
-                    let photo = coreDataPhotos[indexPath.row]
-                    print("populating table view with core data images \(#function)")
-                    cell.photoImageView.image = photo
-                } else if !networkController.photoImagesOfCurrentNetworkCall.isEmpty {
-                    print("populating table view with network images \(#function)")
-                    let photo = networkController.photoImagesOfCurrentNetworkCall[indexPath.row]
-                    cell.photoImageView.image = photo
-                    self.savePhotoIncell(withImage: photo)
-                } else {
-                    print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
-                }
-                return cell
+        
+        if let coreDataPhotos = coreDataPhotoImages {
+            print("coreDataPhotos in cellForItemAt : \(coreDataPhotos.count)")
+            let photo = coreDataPhotos[indexPath.row]
+            print("populating table view with core data images \(#function)")
+            cell.photoImageView.image = photo
+            
+        } else if !networkController.photoImagesOfCurrentNetworkCall.isEmpty {
+            print("populating table view with network images \(#function)")
+            let photo = networkController.photoImagesOfCurrentNetworkCall[indexPath.row]
+            cell.photoImageView.image = photo
+            self.savePhotoIncell(withImage: photo)
+            
+        } else {
+            print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+        }
+        
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
