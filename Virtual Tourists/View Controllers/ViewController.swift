@@ -161,9 +161,6 @@ class ViewController: UIViewController {
                 }
                 //when function is done, it loads the array of images in pinController therefore we can populate the collectionView
                 self.collectionView.reloadData()
-                
-////                //#3 we should be able to save here - this only creates the first photo and saves it.
-//                self.saveOnBackgroundQueue()
             }
         }
     }
@@ -171,8 +168,12 @@ class ViewController: UIViewController {
 
 extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return networkController.photoImagesOfCurrentNetworkCall.count
-        return imagesToPopulateCollectionView.count
+        if coreDataPhotoImages?.count != 0 {
+                   print("core data count inside of number of items in section =  \(String(describing: coreDataPhotoImages?.count))")
+                   return coreDataPhotoImages?.count ?? networkController.photoImagesOfCurrentNetworkCall.count
+               }  else {
+                   return 10
+               }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
