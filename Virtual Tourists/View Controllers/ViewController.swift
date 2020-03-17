@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 
 class ViewController: UIViewController {
+    var pageToIncreate = 1
     let networkController = NetworkController.shared
     var annotation: MKPointAnnotation? {
         didSet {
@@ -143,8 +144,8 @@ class ViewController: UIViewController {
         print("Images in photoImagesOfCurrentNetworkCall: \(networkController.photoImagesOfCurrentNetworkCall.count)\n function: \(#function)")
     }
     
-    func networkCall(lat: Double, lon: Double){
-        NetworkController.shared.fetchPhotoInformationAtGeoLocation(lat: lat, lon: lon) { (photoInformationArray, error) in
+    func networkCall(lat: Double, lon: Double, page: Int? = 1){
+        NetworkController.shared.fetchPhotoInformationAtGeoLocation(lat: lat, lon: lon, page: page) { (photoInformationArray, error) in
             if let error = error {
                 print("Error in file: \(#file) in the body of the function: \(#function)\n on line: \(#line)\n Readable Error: \(error.localizedDescription)\n Technical Error: \(error)\n")
                 return
@@ -166,7 +167,22 @@ class ViewController: UIViewController {
     }
     
     @IBAction func loadMorePhotos(_ sender: UIBarButtonItem) {
+    
         //random value for page
+        //erase what's in the arrays
+        self.coreDataPhotoImages = []
+        print("removed images passed into core data photos")
+        networkController.photoImagesOfCurrentNetworkCall.removeAll()
+        print("removed images in network array")
+        //increase page
+        self.pageToIncreate += 1
+        print("increased page: \(self.pageToIncreate)")
+        guard let passedInPin = self.pin else {
+                  print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+                  return
+              }
+        networkCall(lat: passedInPin.lat, lon: passedInPin.lon, page: self.pageToIncreate)
+        print("making network call with the page")
     }
     
 }

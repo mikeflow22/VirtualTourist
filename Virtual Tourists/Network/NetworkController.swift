@@ -32,7 +32,7 @@ class NetworkController {
         
         urlComponents.queryItems = urlQueryItems
         let finalURL = urlComponents.url!
-        
+        print("this is the url for fetch photos: \(finalURL)")
         URLSession.shared.dataTask(with: finalURL) { (data, response, error) in
             if let response = response as? HTTPURLResponse {
                 print("Response: \(response.statusCode)")
