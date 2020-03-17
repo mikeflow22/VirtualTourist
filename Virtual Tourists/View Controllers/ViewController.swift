@@ -178,6 +178,7 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! PhotoCollectionViewCell
+        
                 if let coreDataPhotos = coreDataPhotoImages {
                     guard coreDataPhotos.count != 0 else {
                         print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")

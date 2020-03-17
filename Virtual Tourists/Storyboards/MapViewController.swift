@@ -24,6 +24,7 @@ class MapViewController: UIViewController {
         mapView.isZoomEnabled = true
 //        pinController.deleteAllpins(pins: pinController.pins)
         showAnnotationsFromCoreData()
+        
     }
     
     @IBAction func tapAndHoldGesture(_ sender: UILongPressGestureRecognizer) {
