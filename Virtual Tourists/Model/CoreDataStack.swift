@@ -21,10 +21,6 @@ class CoreDataStack {
                 fatalError("unresolved error \(error), \(error.userInfo)")
             }
         })
-        
-        //because we want to use another context we have to state how we want the two to communicate or work together
-        
-        container.viewContext.automaticallyMergesChangesFromParent = true
 
         return container
     }()
@@ -32,29 +28,6 @@ class CoreDataStack {
     //step 5 create the context (MOC)
     var mainContext: NSManagedObjectContext {
         return container.viewContext
-    }
-    
-    var backgroundContext: NSManagedObjectContext {
-        let backgroundContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        backgroundContext.parent = mainContext
-        return backgroundContext
-    }
-    
-    //add a save function here for multiple context useage
-
-    func save(context: NSManagedObjectContext) throws {
-        var error: Error?
-        //try to save on the context that's passed in
-        do {
-            try context.save()
-        } catch let throwError {
-            print("Error in: \(#function)\n Readable Error: \(throwError.localizedDescription)\n Technical Error: \(throwError)")
-            error = throwError
-        }
-        if let error = error {
-            throw error
-        }
-        print("saved on another context")
     }
 }
 

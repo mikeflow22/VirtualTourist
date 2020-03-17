@@ -46,13 +46,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
-        print("scene entered background")
-        //save the main context and its contents
-              do {
-                  try CoreDataStack.shared.save(context: CoreDataStack.shared.mainContext)
-              } catch  {
-                  print("Error in: \(#function)\n Readable Error: \(error.localizedDescription)\n Technical Error: \(error)")
-              }
     }
 
 
