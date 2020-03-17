@@ -72,7 +72,7 @@ class MapViewController: UIViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toCollectionView" {
-            guard let destination = segue.destination as? ViewController, let pin = self.pinToPass else {
+            guard let destination = segue.destination as? PhotoListViewController, let pin = self.pinToPass else {
             print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
                 return
             }
