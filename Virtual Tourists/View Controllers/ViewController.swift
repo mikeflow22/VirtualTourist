@@ -107,12 +107,11 @@ class ViewController: UIViewController {
         if photos.count == 0 {
             print("pin has no photos so we are making network call based on pin's lat and lon")
             networkCall(lat: passedInPin.lat, lon: passedInPin.lon)
-////            //#1 put saveToBackground here - this wont work because network is an asynchronous method meaning the rest of the block will be executed before it's done. Meaning we are going to save before we get the photos.
-//            saveOnBackgroundQueue()
         } else {
             print("passed in pin does have photos")
             self.coreDataPhotoImages =  PinController.shared.getImageDataFromPhoto(pin: passedInPin)
             print("coreDataPhotoImages.count:  \(String(describing: self.coreDataPhotoImages?.count))")
+            self.collectionView.reloadData()
         }
     }
     
