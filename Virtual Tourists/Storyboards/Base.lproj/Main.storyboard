@@ -129,7 +129,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="wPp-PN-06A"/>
+                    <navigationItem key="navigationItem" id="wPp-PN-06A">
+                        <barButtonItem key="rightBarButtonItem" title="Load More" id="Y8I-dO-8of">
+                            <connections>
+                                <action selector="loadMorePhotos:" destination="BYZ-38-t0r" id="biG-aB-sAS"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="0DQ-DV-c8f" id="bbw-1G-CTp"/>
                         <outlet property="mapView" destination="aTl-J8-0aQ" id="71Y-5w-Pa9"/>

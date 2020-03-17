@@ -164,6 +164,10 @@ class ViewController: UIViewController {
             }
         }
     }
+    
+    @IBAction func loadMorePhotos(_ sender: UIBarButtonItem) {
+    }
+    
 }
 
 extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
@@ -178,7 +182,7 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! PhotoCollectionViewCell
-        
+        cell.photoImageView.image = UIImage(named: "placeholder")
                 if let coreDataPhotos = coreDataPhotoImages {
                     guard coreDataPhotos.count != 0 else {
                         print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
